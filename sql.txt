@@ -1,0 +1,313 @@
+CREATE TABLE `t_comment_base` ( 
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `type` VARCHAR(255) NULL,
+  `shop_id` VARCHAR(255) NULL,
+  `service_id` BIGINT NULL,
+  `pro_id` BIGINT NULL,
+  `member_base_id` BIGINT NULL,
+  `star` INT NULL,
+  `comment` VARCHAR(255) NULL,
+  `reply` VARCHAR(255) NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `status` INT NULL DEFAULT 1;
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+CREATE TABLE `t_industry_base` ( 
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `name` VARCHAR(255) NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `status` VARCHAR(20) NULL,
+  `url` VARCHAR(255) NULL,
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+CREATE TABLE `t_media_base` ( 
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `target` VARCHAR(255) NOT NULL,
+  `type` VARCHAR(50) NOT NULL,
+  `sort` INT NULL,
+  `specification` VARCHAR(50) NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `status` INT NULL DEFAULT 1;
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+CREATE TABLE `t_media_con` ( 
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `image_id` BIGINT NOT NULL,
+  `bind_id` BIGINT NOT NULL,
+  `type` INT NOT NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `status` INT NULL DEFAULT 1;
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+CREATE TABLE `t_member_base` ( 
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `name` VARCHAR(255) NULL,
+  `mobile` VARCHAR(255) NULL,
+  `email` VARCHAR(255) NULL,
+  `password` VARCHAR(255) NULL,
+  `salt` VARCHAR(255) NULL,
+  `nick_name` VARCHAR(255) NULL,
+  `line_id` VARCHAR(255) NULL,
+  `pic_Url` VARCHAR(255) NULL,
+  `pseudonym` VARCHAR(255) NULL,
+  `source` INT NULL,
+  `status` INT NULL DEFAULT 1;
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+CREATE TABLE `t_moneybook_base` ( 
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `shop_id` BIGINT NULL,
+  `order_id` BIGINT NULL,
+  `type` INT NULL,
+  `balance` DECIMAL(19,2) NULL,
+  `be_divided_into_ratio` INT NULL,
+  `withdrawal_balance` DECIMAL(19,2) NULL,
+  `be_divided_into_balance` DECIMAL(19,2) NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `status` INT NULL DEFAULT 1;
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+CREATE TABLE `t_order_base` ( 
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `code` VARCHAR(255) NULL,
+  `lifecycle` INT NULL,
+  `type` INT NULL,
+  `payment` INT NULL,
+  `total` DECIMAL(10,2) NULL,
+  `discount` DECIMAL(10,2) NULL,
+  `order_counter` INT NULL,
+  `member_id` BIGINT NULL,
+  `shop_id` BIGINT NULL,
+  `effective_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `expired_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `status` INT NULL DEFAULT 1;
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+CREATE TABLE `t_order_line` ( 
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `order_id` BIGINT NULL,
+  `product_id` BIGINT NULL,
+  `service_id` BIGINT NULL,
+  `quantity` INT NULL,
+  `total` DECIMAL(10,2) NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `status` INT NULL DEFAULT 1;
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+CREATE TABLE `t_product_base` ( 
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `title` VARCHAR(255) NULL,
+  `sub_title` VARCHAR(255) NULL,
+  `tag` VARCHAR(255) NULL,
+  `description` TEXT NULL,
+  `sales_price` DECIMAL(10,2) NULL,
+  `tag_price` DECIMAL(10,2) NULL,
+  `shop_id` BIGINT NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+CREATE TABLE `t_service_base` ( 
+  `id` INT AUTO_INCREMENT NOT NULL,
+  `name` VARCHAR(255) NULL,
+  `title` VARCHAR(255) NULL,
+  `sub_title` VARCHAR(255) NULL,
+  `description` MEDIUMTEXT NULL,
+  `total_count` INT NULL,
+  `location` VARCHAR(255) NULL,
+  `day_count` INT NULL,
+  `service_time_day` INT NULL,
+  `open_time` TIME NULL,
+  `close_time` TIME NULL,
+  `start_time` DATE NULL,
+  `end_time` DATE NULL,
+  `prices` DECIMAL(10,2) NULL,
+  `shop_id` BIGINT NULL,
+  `industry_id` BIGINT NULL,
+  `address` VARCHAR(255) NULL,
+  `status` INT NULL DEFAULT 1;
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+CREATE TABLE `t_service_order` ( 
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `user_id` BIGINT NOT NULL,
+  `service_id` BIGINT NOT NULL,
+  `order_id` BIGINT NULL,
+  `name` VARCHAR(255) NULL,
+  `type` INT NULL,
+  `title` VARCHAR(255) NULL,
+  `sub_title` VARCHAR(255) NULL,
+  `description` VARCHAR(255) NULL,
+  `total_count` INT NULL,
+  `operation_type` INT NULL,
+  `rem_count` INT NULL,
+  `update_u_id` BIGINT NULL,
+  `day_count` INT NULL,
+  `open_time` TIME NULL,
+  `close_time` TIME NULL,
+  `start_time` DATE NULL,
+  `end_time` DATE NULL,
+  `shop_id` BIGINT NULL,
+  `prices` DECIMAL(10,2) NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `status` INT NULL DEFAULT 1;
+  `service_time_day` INT NULL,
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+CREATE TABLE `t_shop_bank_account` ( 
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `shop_id` BIGINT NULL,
+  `responsible_person` VARCHAR(255) NULL,
+  `contact_method` VARCHAR(255) NULL,
+  `email` VARCHAR(255) NULL,
+  `bank_name` VARCHAR(255) NULL,
+  `bank_number` VARCHAR(255) NULL,
+  `branch_name` VARCHAR(255) NULL,
+  `branch_number` VARCHAR(255) NULL,
+  `bank_card_number` VARCHAR(255) NULL,
+  `bank_account_name` VARCHAR(255) NULL,
+  `bank_account_name_pseudonym` VARCHAR(255) NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `status` INT NULL DEFAULT 1;
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+CREATE TABLE `t_shop_base` ( 
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `title` VARCHAR(255) NULL,
+  `lifecycle` INT NULL,
+  `sub_title` VARCHAR(255) NULL,
+  `industry_id` BIGINT NULL,
+  `description` MEDIUMTEXT NULL,
+  `station` VARCHAR(255) NULL,
+  `open_time` TIME NULL,
+  `close_time` TIME NULL,
+  `location` VARCHAR(255) NULL,
+  `balance` DECIMAL(10,2) NULL,
+  `shop_member_id` BIGINT NULL,
+  `address` VARCHAR(255) NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `status` INT NULL DEFAULT 1;
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+CREATE TABLE `t_shop_member` ( 
+  `id` BIGINT AUTO_INCREMENT NOT NULL,
+  `name` VARCHAR(255) NULL,
+  `email` VARCHAR(255) NULL,
+  `password` VARCHAR(255) NULL,
+  `salt` VARCHAR(255) NULL,
+  `mobile` VARCHAR(20) NULL,
+  `source` INT NULL,
+  `shop_id` BIGINT NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `status` INT NULL DEFAULT 1;
+  CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
+);
+SET FOREIGN_KEY_CHECKS = 0;
+INSERT INTO `t_industry_base` (`id`, `name`, `create_time`, `update_time`, `status`, `url`) VALUES ('1', '饭店', '2024-04-02 23:31:30', '2024-04-02 23:31:30', '1', NULL);
+INSERT INTO `t_industry_base` (`id`, `name`, `create_time`, `update_time`, `status`, `url`) VALUES ('2', '奶茶', '2024-04-02 23:31:30', '2024-04-02 23:31:30', '1', NULL);
+INSERT INTO `t_industry_base` (`id`, `name`, `create_time`, `update_time`, `status`, `url`) VALUES ('3', '酒', '2024-04-02 23:31:30', '2024-04-02 23:31:30', '1', NULL);
+INSERT INTO `t_industry_base` (`id`, `name`, `create_time`, `update_time`, `status`, `url`) VALUES ('4', '美甲', '2024-04-02 23:31:30', '2024-04-02 23:31:30', '1', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('1', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/LOGO20240402233009517', 'LOGO', NULL, '146X146', '2024-04-02 23:30:09', '2024-04-02 23:30:09', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('2', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/BANNER20240402233033599', 'BANNER', NULL, '146X146', '2024-04-02 23:30:33', '2024-04-02 23:30:33', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('3', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/LOGO20240402233335344', 'LOGO', NULL, '146X146', '2024-04-02 23:33:35', '2024-04-02 23:33:35', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('4', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/BANNER20240402233340201', 'BANNER', NULL, '146X146', '2024-04-02 23:33:40', '2024-04-02 23:33:40', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('5', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/LOGO20240402234120155', 'LOGO', NULL, '146X146', '2024-04-02 23:41:20', '2024-04-02 23:41:20', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('6', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/BANNER20240402234123786', 'BANNER', NULL, '146X146', '2024-04-02 23:41:23', '2024-04-02 23:41:23', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('7', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/LOGO20240403115743309', 'LOGO', NULL, '146X146', '2024-04-03 11:57:44', '2024-04-03 11:57:44', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('8', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/BANNER20240403115753191', 'BANNER', NULL, '146X146', '2024-04-03 11:57:53', '2024-04-03 11:57:53', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('9', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/LOGO20240403115936832', 'LOGO', NULL, '146X146', '2024-04-03 11:59:36', '2024-04-03 11:59:36', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('10', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/BANNER20240403115945886', 'BANNER', NULL, '146X146', '2024-04-03 11:59:45', '2024-04-03 11:59:45', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('11', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/LOGO20240403120313146', 'LOGO', NULL, '146X146', '2024-04-03 12:03:14', '2024-04-03 12:03:14', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('12', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/BANNER20240403120318969', 'BANNER', NULL, '146X146', '2024-04-03 12:03:18', '2024-04-03 12:03:18', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('13', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/LOGO20240403143933541', 'LOGO', NULL, '146X146', '2024-04-03 14:39:34', '2024-04-03 14:39:34', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('14', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/BANNER20240403144029676', 'BANNER', NULL, '146X146', '2024-04-03 14:40:30', '2024-04-03 14:40:30', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('15', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/LOGO20240403144349955', 'LOGO', NULL, '146X146', '2024-04-03 14:43:50', '2024-04-03 14:43:50', NULL);
+INSERT INTO `t_media_base` (`id`, `target`, `type`, `sort`, `specification`, `create_time`, `update_time`, `status`) VALUES ('16', 'https://regaferi.oss-ap-northeast-1.aliyuncs.com/BANNER20240403144500358', 'BANNER', NULL, '146X146', '2024-04-03 14:45:01', '2024-04-03 14:45:01', NULL);
+INSERT INTO `t_media_con` (`id`, `image_id`, `bind_id`, `type`, `create_time`, `update_time`, `status`) VALUES ('3', '5', '1', 3, '2024-04-02 23:44:09', '2024-04-02 23:44:09', NULL);
+INSERT INTO `t_media_con` (`id`, `image_id`, `bind_id`, `type`, `create_time`, `update_time`, `status`) VALUES ('4', '6', '1', 3, '2024-04-02 23:44:12', '2024-04-02 23:44:12', NULL);
+INSERT INTO `t_media_con` (`id`, `image_id`, `bind_id`, `type`, `create_time`, `update_time`, `status`) VALUES ('5', '7', '4', 1, '2024-04-03 11:58:33', '2024-04-03 11:58:33', NULL);
+INSERT INTO `t_media_con` (`id`, `image_id`, `bind_id`, `type`, `create_time`, `update_time`, `status`) VALUES ('6', '8', '4', 1, '2024-04-03 11:58:33', '2024-04-03 11:58:33', NULL);
+INSERT INTO `t_media_con` (`id`, `image_id`, `bind_id`, `type`, `create_time`, `update_time`, `status`) VALUES ('7', '9', '2', 3, '2024-04-03 12:02:45', '2024-04-03 12:02:45', NULL);
+INSERT INTO `t_media_con` (`id`, `image_id`, `bind_id`, `type`, `create_time`, `update_time`, `status`) VALUES ('8', '10', '2', 3, '2024-04-03 12:02:45', '2024-04-03 12:02:45', NULL);
+INSERT INTO `t_media_con` (`id`, `image_id`, `bind_id`, `type`, `create_time`, `update_time`, `status`) VALUES ('9', '11', '3', 3, '2024-04-03 12:03:49', '2024-04-03 12:03:49', NULL);
+INSERT INTO `t_media_con` (`id`, `image_id`, `bind_id`, `type`, `create_time`, `update_time`, `status`) VALUES ('10', '12', '3', 3, '2024-04-03 12:03:49', '2024-04-03 12:03:49', NULL);
+INSERT INTO `t_media_con` (`id`, `image_id`, `bind_id`, `type`, `create_time`, `update_time`, `status`) VALUES ('11', '13', '3', 1, '2024-04-03 14:41:00', '2024-04-03 14:41:00', NULL);
+INSERT INTO `t_media_con` (`id`, `image_id`, `bind_id`, `type`, `create_time`, `update_time`, `status`) VALUES ('12', '14', '3', 1, '2024-04-03 14:41:00', '2024-04-03 14:41:00', NULL);
+INSERT INTO `t_media_con` (`id`, `image_id`, `bind_id`, `type`, `create_time`, `update_time`, `status`) VALUES ('13', '15', '4', 3, '2024-04-03 14:45:37', '2024-04-03 14:45:37', NULL);
+INSERT INTO `t_media_con` (`id`, `image_id`, `bind_id`, `type`, `create_time`, `update_time`, `status`) VALUES ('14', '16', '4', 3, '2024-04-03 14:45:37', '2024-04-03 14:45:37', NULL);
+INSERT INTO `t_member_base` (`id`, `name`, `mobile`, `email`, `password`, `salt`, `nick_name`, `line_id`, `pic_Url`, `pseudonym`, `source`, `status`, `create_time`, `update_time`) VALUES ('2', 'yao', '12312341234', '18447073720@163.com', '$2a$10$XcZZOiHAZxs28Tksyb/HtOxzDPNZs0D1gp6Vh5FjG/PZXsiph5HXi', '$2a$10$XcZZOiHAZxs28Tksyb/HtO', NULL, NULL, NULL, 'yao', 100, 1, '2024-04-03 00:15:36', '2024-04-03 03:13:25');
+INSERT INTO `t_member_base` (`id`, `name`, `mobile`, `email`, `password`, `salt`, `nick_name`, `line_id`, `pic_Url`, `pseudonym`, `source`, `status`, `create_time`, `update_time`) VALUES ('3', 'ding', '00000000000', '625073235@qq.com', '$2a$10$6LMmpdFCtVj0M7oEo3Ve2.M.BmYtN4eSTzOWXzJyIEFry87ZSah8u', '$2a$10$6LMmpdFCtVj0M7oEo3Ve2.', NULL, NULL, NULL, 'ding', 100, 1, '2024-04-03 03:18:56', '2024-04-03 03:28:02');
+INSERT INTO `t_member_base` (`id`, `name`, `mobile`, `email`, `password`, `salt`, `nick_name`, `line_id`, `pic_Url`, `pseudonym`, `source`, `status`, `create_time`, `update_time`) VALUES ('4', 'rei', '00000000001', 'shijiali@rei-rei.jp', '$2a$10$dhpyI/j40XorOB4/tK2HW.5Tu57gypZ7bEHyn0r9XEz6g7kl0GYr.', '$2a$10$dhpyI/j40XorOB4/tK2HW.', NULL, NULL, NULL, 'rei', 100, 1, '2024-04-03 12:15:05', '2024-04-03 12:15:05');
+INSERT INTO `t_moneybook_base` (`id`, `shop_id`, `order_id`, `type`, `balance`, `be_divided_into_ratio`, `withdrawal_balance`, `be_divided_into_balance`, `create_time`, `update_time`, `status`) VALUES ('1', '3', '6', 1, '900.00', NULL, NULL, NULL, '2024-04-03 01:27:18', '2024-04-03 01:27:18', 1);
+INSERT INTO `t_moneybook_base` (`id`, `shop_id`, `order_id`, `type`, `balance`, `be_divided_into_ratio`, `withdrawal_balance`, `be_divided_into_balance`, `create_time`, `update_time`, `status`) VALUES ('2', '3', '7', 1, '900.00', NULL, NULL, NULL, '2024-04-03 02:27:17', '2024-04-03 02:27:17', 1);
+INSERT INTO `t_moneybook_base` (`id`, `shop_id`, `order_id`, `type`, `balance`, `be_divided_into_ratio`, `withdrawal_balance`, `be_divided_into_balance`, `create_time`, `update_time`, `status`) VALUES ('3', '3', '8', 1, '900.00', NULL, NULL, NULL, '2024-04-03 03:26:06', '2024-04-03 03:26:06', 1);
+INSERT INTO `t_moneybook_base` (`id`, `shop_id`, `order_id`, `type`, `balance`, `be_divided_into_ratio`, `withdrawal_balance`, `be_divided_into_balance`, `create_time`, `update_time`, `status`) VALUES ('4', '3', '10', 1, '900.00', NULL, NULL, NULL, '2024-04-03 12:18:48', '2024-04-03 12:18:48', 1);
+INSERT INTO `t_moneybook_base` (`id`, `shop_id`, `order_id`, `type`, `balance`, `be_divided_into_ratio`, `withdrawal_balance`, `be_divided_into_balance`, `create_time`, `update_time`, `status`) VALUES ('5', '3', '11', 1, '900.00', NULL, NULL, NULL, '2024-04-03 12:20:13', '2024-04-03 12:20:13', 1);
+INSERT INTO `t_moneybook_base` (`id`, `shop_id`, `order_id`, `type`, `balance`, `be_divided_into_ratio`, `withdrawal_balance`, `be_divided_into_balance`, `create_time`, `update_time`, `status`) VALUES ('6', '3', '12', 1, '900.00', NULL, NULL, NULL, '2024-04-03 14:54:10', '2024-04-03 14:54:10', 1);
+INSERT INTO `t_order_base` (`id`, `code`, `lifecycle`, `type`, `payment`, `total`, `discount`, `order_counter`, `member_id`, `shop_id`, `effective_time`, `expired_time`, `create_time`, `update_time`, `status`) VALUES ('6', 'RJFR-sehnwnxih401jpnh1712077303546', 201, 100, 200, '1000.00', '0.00', 100, '2', '3', '2024-04-02 17:01:44', '2024-04-02 17:01:44', '2024-04-03 01:01:43', '2024-04-03 01:01:43', 1);
+INSERT INTO `t_order_base` (`id`, `code`, `lifecycle`, `type`, `payment`, `total`, `discount`, `order_counter`, `member_id`, `shop_id`, `effective_time`, `expired_time`, `create_time`, `update_time`, `status`) VALUES ('7', 'RJFR-ahx90g6qo7rupum91712082417330', 201, 100, 200, '1000.00', '0.00', 100, '2', '3', '2024-04-02 18:26:57', '2024-04-02 18:26:57', '2024-04-03 02:26:57', '2024-04-03 02:26:57', 1);
+INSERT INTO `t_order_base` (`id`, `code`, `lifecycle`, `type`, `payment`, `total`, `discount`, `order_counter`, `member_id`, `shop_id`, `effective_time`, `expired_time`, `create_time`, `update_time`, `status`) VALUES ('8', 'RJFR-q5r8v600928iynmb1712085933784', 201, 100, 200, '1000.00', '0.00', 5, '3', '3', '2024-04-02 19:25:34', '2024-04-02 19:25:34', '2024-04-03 03:25:33', '2024-04-03 03:25:33', 1);
+INSERT INTO `t_order_base` (`id`, `code`, `lifecycle`, `type`, `payment`, `total`, `discount`, `order_counter`, `member_id`, `shop_id`, `effective_time`, `expired_time`, `create_time`, `update_time`, `status`) VALUES ('9', 'RJFR-wytinw3pfr830hd21712086362689', 100, 100, 200, '1000.00', '0.00', 5, '3', '3', '2024-04-02 19:32:43', '2024-04-02 19:32:43', '2024-04-03 03:32:42', '2024-04-03 03:32:42', 1);
+INSERT INTO `t_order_base` (`id`, `code`, `lifecycle`, `type`, `payment`, `total`, `discount`, `order_counter`, `member_id`, `shop_id`, `effective_time`, `expired_time`, `create_time`, `update_time`, `status`) VALUES ('10', 'RJFR-0hbdvb47fxduqycg1712117827547', 200, 100, 200, '1000.00', '0.00', 5, '4', '3', '2024-04-03 04:17:08', '2024-04-03 04:17:08', '2024-04-03 12:17:07', '2024-04-03 12:17:07', 1);
+INSERT INTO `t_order_base` (`id`, `code`, `lifecycle`, `type`, `payment`, `total`, `discount`, `order_counter`, `member_id`, `shop_id`, `effective_time`, `expired_time`, `create_time`, `update_time`, `status`) VALUES ('11', 'RJFR-h46blqdj3lzimb3n1712117991302', 200, 100, 200, '1000.00', '0.00', 5, '4', '3', '2024-04-03 04:19:51', '2024-04-03 04:19:51', '2024-04-03 12:19:51', '2024-04-03 12:19:51', 1);
+INSERT INTO `t_order_base` (`id`, `code`, `lifecycle`, `type`, `payment`, `total`, `discount`, `order_counter`, `member_id`, `shop_id`, `effective_time`, `expired_time`, `create_time`, `update_time`, `status`) VALUES ('12', 'RJFR-dwkvka4rv081d66l1712127226388', 201, 100, 200, '1000.00', '0.00', 10, '3', '3', '2024-04-03 06:53:46', '2024-04-03 06:53:46', '2024-04-03 14:53:46', '2024-04-03 14:53:46', 1);
+INSERT INTO `t_order_line` (`id`, `order_id`, `product_id`, `service_id`, `quantity`, `total`, `create_time`, `update_time`, `status`) VALUES ('5', '6', NULL, '1', 1, '1000.00', '2024-04-03 01:01:43', '2024-04-03 01:01:43', 1);
+INSERT INTO `t_order_line` (`id`, `order_id`, `product_id`, `service_id`, `quantity`, `total`, `create_time`, `update_time`, `status`) VALUES ('6', '7', NULL, '1', 1, '1000.00', '2024-04-03 02:26:57', '2024-04-03 02:26:57', 1);
+INSERT INTO `t_order_line` (`id`, `order_id`, `product_id`, `service_id`, `quantity`, `total`, `create_time`, `update_time`, `status`) VALUES ('7', '8', NULL, '1', 1, '1000.00', '2024-04-03 03:25:33', '2024-04-03 03:25:33', 1);
+INSERT INTO `t_order_line` (`id`, `order_id`, `product_id`, `service_id`, `quantity`, `total`, `create_time`, `update_time`, `status`) VALUES ('8', '9', NULL, '1', 1, '1000.00', '2024-04-03 03:32:42', '2024-04-03 03:32:42', 1);
+INSERT INTO `t_order_line` (`id`, `order_id`, `product_id`, `service_id`, `quantity`, `total`, `create_time`, `update_time`, `status`) VALUES ('9', '10', NULL, '1', 1, '1000.00', '2024-04-03 12:17:07', '2024-04-03 12:17:07', 1);
+INSERT INTO `t_order_line` (`id`, `order_id`, `product_id`, `service_id`, `quantity`, `total`, `create_time`, `update_time`, `status`) VALUES ('10', '11', NULL, '1', 1, '1000.00', '2024-04-03 12:19:51', '2024-04-03 12:19:51', 1);
+INSERT INTO `t_order_line` (`id`, `order_id`, `product_id`, `service_id`, `quantity`, `total`, `create_time`, `update_time`, `status`) VALUES ('11', '12', NULL, '4', 1, '1000.00', '2024-04-03 14:53:46', '2024-04-03 14:53:46', 1);
+INSERT INTO `t_service_base` (`id`, `name`, `title`, `sub_title`, `description`, `total_count`, `location`, `day_count`, `service_time_day`, `open_time`, `close_time`, `start_time`, `end_time`, `prices`, `shop_id`, `industry_id`, `address`, `status`, `create_time`, `update_time`) VALUES (1, '菜单', NULL, 'sub菜单', '菜单的说明', 5, '池袋', 10, 10, '15:00:00', '14:00:00', '1970-12-31', '2036-12-31', '1000.00', '3', '1', '东京池袋', 2, '2024-04-02 23:46:37', '2024-04-02 23:46:37');
+INSERT INTO `t_service_base` (`id`, `name`, `title`, `sub_title`, `description`, `total_count`, `location`, `day_count`, `service_time_day`, `open_time`, `close_time`, `start_time`, `end_time`, `prices`, `shop_id`, `industry_id`, `address`, `status`, `create_time`, `update_time`) VALUES (2, '麻婆豆腐', NULL, '辣椒', '料理店', 5, '池袋', 20, 30, '22:00:00', '12:15:00', '1970-12-31', '2036-12-31', '1000.00', '4', '1', '池袋23456', 1, '2024-04-03 12:02:45', '2024-04-03 12:02:45');
+INSERT INTO `t_service_base` (`id`, `name`, `title`, `sub_title`, `description`, `total_count`, `location`, `day_count`, `service_time_day`, `open_time`, `close_time`, `start_time`, `end_time`, `prices`, `shop_id`, `industry_id`, `address`, `status`, `create_time`, `update_time`) VALUES (3, '面', NULL, '面', '面', NULL, '池袋', NULL, 90, '15:00:00', '13:30:00', '1970-12-31', '2036-12-31', '2000.00', '4', '1', '池袋', 1, '2024-04-03 12:03:49', '2024-04-03 12:03:49');
+INSERT INTO `t_service_base` (`id`, `name`, `title`, `sub_title`, `description`, `total_count`, `location`, `day_count`, `service_time_day`, `open_time`, `close_time`, `start_time`, `end_time`, `prices`, `shop_id`, `industry_id`, `address`, `status`, `create_time`, `update_time`) VALUES (4, 'food', NULL, 'subfood', 'food  说明', 10, '池袋', 15, 10, '15:00:00', '10:30:00', '1970-12-31', '2036-12-31', '1000.00', '3', '1', '池袋', 1, '2024-04-03 14:45:37', '2024-04-03 14:45:37');
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('1', '2', '1', '6', '菜单', NULL, NULL, NULL, NULL, 5, 1, 5, '2', 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 01:27:18', '2024-04-03 01:27:18', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('2', '2', '1', '6', '菜单', NULL, NULL, NULL, NULL, 5, 2, 4, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 01:40:48', '2024-04-03 01:27:18', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('3', '2', '1', '6', '菜单', NULL, NULL, NULL, NULL, 5, 2, 3, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 01:41:37', '2024-04-03 01:27:18', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('4', '2', '1', '6', '菜单', NULL, NULL, NULL, NULL, 5, 2, 10, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 01:42:12', '2024-04-03 01:43:38', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('5', '2', '1', '6', '菜单', NULL, NULL, NULL, NULL, 5, 2, 9, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 01:43:46', '2024-04-03 01:43:38', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('6', '2', '1', '6', '菜单', NULL, NULL, NULL, NULL, 5, 2, 8, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 01:46:19', '2024-04-03 01:43:38', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('7', '2', '1', '6', '菜单', NULL, NULL, NULL, NULL, 5, 2, 7, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 02:22:29', '2024-04-03 01:43:38', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('8', '2', '1', '6', '菜单', NULL, NULL, NULL, NULL, 5, 2, 6, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 02:22:39', '2024-04-03 01:43:38', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('9', '2', '1', '6', '菜单', NULL, NULL, NULL, NULL, 5, 2, 5, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 02:22:59', '2024-04-03 01:43:38', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('10', '2', '1', '6', '菜单', NULL, NULL, NULL, NULL, 5, 2, 4, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 02:23:34', '2024-04-03 01:43:38', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('11', '2', '1', '6', '菜单', NULL, NULL, NULL, NULL, 5, 2, 3, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 02:24:37', '2024-04-03 01:43:38', '1', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('12', '2', '1', '7', '菜单', NULL, NULL, NULL, NULL, 5, 1, 5, '2', 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 02:27:17', '2024-04-03 02:27:17', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('13', '2', '1', '7', '菜单', NULL, NULL, NULL, NULL, 5, 2, 4, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 02:27:27', '2024-04-03 02:27:17', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('14', '2', '1', '7', '菜单', NULL, NULL, NULL, NULL, 5, 2, 3, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 02:29:06', '2024-04-03 02:27:17', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('15', '2', '1', '7', '菜单', NULL, NULL, NULL, NULL, 5, 2, 2, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 02:30:11', '2024-04-03 02:27:17', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('16', '2', '1', '7', '菜单', NULL, NULL, NULL, NULL, 5, 2, 1, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 02:31:02', '2024-04-03 02:27:17', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('17', '2', '1', '7', '菜单', NULL, NULL, NULL, NULL, 5, 2, 100, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 02:38:19', '2024-04-03 02:39:35', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('18', '2', '1', '7', '菜单', NULL, NULL, NULL, NULL, 5, 2, 99, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 02:39:37', '2024-04-03 02:39:35', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('19', '2', '1', '7', '菜单', NULL, NULL, NULL, NULL, 5, 2, 98, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 03:02:52', '2024-04-03 02:39:35', '1', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('20', '3', '1', '8', '菜单', NULL, NULL, NULL, NULL, 5, 1, 5, '3', 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 03:26:06', '2024-04-03 03:26:06', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('21', '3', '1', '8', '菜单', NULL, NULL, NULL, NULL, 5, 2, 4, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 03:27:11', '2024-04-03 03:26:06', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('22', '4', '1', '10', '菜单', NULL, NULL, NULL, NULL, 5, 1, 5, '4', 10, '15:00:00', '14:00:00', '2024-04-03', '2024-04-13', '3', NULL, '2024-04-03 12:18:48', '2024-04-03 12:18:48', '1', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('23', '4', '1', '11', '菜单', NULL, NULL, NULL, NULL, 5, 1, 5, '4', 10, '15:00:00', '14:00:00', '2024-04-03', '2024-04-13', '3', NULL, '2024-04-03 12:20:13', '2024-04-03 12:20:13', '1', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('24', '3', '1', '8', '菜单', NULL, NULL, NULL, NULL, 5, 2, 3, NULL, 10, '15:00:00', '14:00:00', '2024-04-02', '2024-04-12', '3', NULL, '2024-04-03 12:29:11', '2024-04-03 03:26:06', '1', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('25', '3', '4', '12', 'food', NULL, NULL, NULL, NULL, 10, 1, 10, '3', 15, '15:00:00', '10:30:00', '2024-04-03', '2024-04-13', '3', NULL, '2024-04-03 14:54:10', '2024-04-03 14:54:10', '2', 10);
+INSERT INTO `t_service_order` (`id`, `user_id`, `service_id`, `order_id`, `name`, `type`, `title`, `sub_title`, `description`, `total_count`, `operation_type`, `rem_count`, `update_u_id`, `day_count`, `open_time`, `close_time`, `start_time`, `end_time`, `shop_id`, `prices`, `create_time`, `update_time`, `status`, `service_time_day`) VALUES ('26', '3', '4', '12', 'food', NULL, NULL, NULL, NULL, 10, 2, 9, NULL, 15, '15:00:00', '10:30:00', '2024-04-03', '2024-04-13', '3', NULL, '2024-04-03 14:56:13', '2024-04-03 14:54:10', '1', 10);
+INSERT INTO `t_shop_bank_account` (`id`, `shop_id`, `responsible_person`, `contact_method`, `email`, `bank_name`, `bank_number`, `branch_name`, `branch_number`, `bank_card_number`, `bank_account_name`, `bank_account_name_pseudonym`, `create_time`, `update_time`, `status`) VALUES ('1', '3', '丁', '12345671234', '625073235@qq.com', 'JA', '001', '001', '0001', '1111111111111', 'test', 'test', NULL, NULL, NULL);
+INSERT INTO `t_shop_bank_account` (`id`, `shop_id`, `responsible_person`, `contact_method`, `email`, `bank_name`, `bank_number`, `branch_name`, `branch_number`, `bank_card_number`, `bank_account_name`, `bank_account_name_pseudonym`, `create_time`, `update_time`, `status`) VALUES ('2', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_shop_base` (`id`, `title`, `lifecycle`, `sub_title`, `industry_id`, `description`, `station`, `open_time`, `close_time`, `location`, `balance`, `shop_member_id`, `address`, `create_time`, `update_time`, `status`) VALUES ('3', '店铺名', 1, 'タイトルを入力してください', NULL, '店铺介绍', NULL, '00:00:00', '12:00:00', '车站', '0.00', '6', '东京池袋', '2024-04-02 19:05:00', '2024-04-03 14:49:32', '1');
+INSERT INTO `t_shop_base` (`id`, `title`, `lifecycle`, `sub_title`, `industry_id`, `description`, `station`, `open_time`, `close_time`, `location`, `balance`, `shop_member_id`, `address`, `create_time`, `update_time`, `status`) VALUES ('4', 'test', 1, 'タイトルを入力してください', NULL, '123456789', NULL, '23:30:00', '12:00:00', '池袋', '0.00', '7', 'xxxxxxxxx', '2024-04-03 11:51:00', '2024-04-03 12:12:24', '1');
+INSERT INTO `t_shop_member` (`id`, `name`, `email`, `password`, `salt`, `mobile`, `source`, `shop_id`, `create_time`, `update_time`, `status`) VALUES ('6', 'ding', '625073235@qq.com', '$2a$10$HVOve4xIVjoFUOR2wZNv8u/McpdNGOmyc2l4vZjY4Aw71ucOYECJO', '$2a$10$HVOve4xIVjoFUOR2wZNv8u', NULL, 100, '3', '2024-04-02 19:05:39', '2024-04-02 19:05:41', '1');
+INSERT INTO `t_shop_member` (`id`, `name`, `email`, `password`, `salt`, `mobile`, `source`, `shop_id`, `create_time`, `update_time`, `status`) VALUES ('7', '史', 'shijiali@rei-rei.jp', '$2a$10$5SsDB3AL62AY7aHFGWUGK.7YdiBs2XVAvp4lDU3q8jHp4eqBeSQNG', '$2a$10$5SsDB3AL62AY7aHFGWUGK.', NULL, 100, '4', '2024-04-03 11:51:58', '2024-04-03 11:51:58', '1');
+SET FOREIGN_KEY_CHECKS = 1;
